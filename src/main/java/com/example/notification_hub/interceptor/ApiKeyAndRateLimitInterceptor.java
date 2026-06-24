@@ -30,7 +30,7 @@ public class ApiKeyAndRateLimitInterceptor implements HandlerInterceptor {
 
         if (apiKey == null || !apiKey.equals(SECURE_API_KEY)) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value()); // 401 Unauthorized
-            response.getWriter().write("{\"error\": \"Bhai, galat ya missing API Key!\"}");
+            response.getWriter().write("{\"error\": \"API key is missing! or is Wrong!\"}");
             response.setContentType("application/json");
             return false; // Request ko aage Controller tak MAT jaane do
         }
@@ -38,7 +38,7 @@ public class ApiKeyAndRateLimitInterceptor implements HandlerInterceptor {
         // 2. RATE LIMIT CHECK: Kya balti mein token bacha hai?
         if (!bucket.tryConsume(1)) {
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value()); // 429 Too Many Requests
-            response.getWriter().write("{\"error\": \"Sabar karo bhai! Rate limit exceed ho gayi.\"}");
+            response.getWriter().write("{\"error\": \"Rate Limit Exceeded!\"}");
             response.setContentType("application/json");
             return false; // Request block
         }

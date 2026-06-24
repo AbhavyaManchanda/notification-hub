@@ -27,8 +27,8 @@ public class NotificationController {
     @GetMapping
     public String triggerNotification(
             @RequestParam NotificationType type, // String ki jagah ENUM data type!
-            @RequestParam @NotBlank @Email(message = "Bhai, sahi email address dalo!") String to,
-            @RequestParam @NotBlank @Size(min = 5, message = "Message kam se kam 5 characters ka hona chahiye") String message) {
+            @RequestParam @NotBlank @Email(message = "Please enter the right Email Address!") String to,
+            @RequestParam @NotBlank @Size(min = 5, message = "Message should be minimum 5 characters") String message) {
 
         notificationService.routeNotification(type, to, message);
         return "Notification sent successfully via " + type + "!";
